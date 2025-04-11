@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="meditrack.controller.ExpensesController"
+            stylesheets="@../css/meditrack-styles.css">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+            <Label text="Medical Expenses" styleClass="section-title"/>
+            
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <!-- Search and filters -->
+                <TextField fx:id="searchField" promptText="Search expenses..." prefWidth="200"/>
+                
+                <Label text="Category:"/>
+                <ComboBox fx:id="categoryFilter" prefWidth="150"/>
+                
+                <Label text="Date Range:"/>
+                <DatePicker fx:id="startDatePicker" promptText="Start Date"/>
+                <DatePicker fx:id="endDatePicker" promptText="End Date"/>
+                
+                <Button text="Apply Filters" onAction="#handleApplyFilters"/>
+                <Button text="Clear Filters" onAction="#handleClearFilters"/>
+                
+                <Pane HBox.hgrow="ALWAYS"/>
+                
+                <Label text="Sort By:"/>
+                <ComboBox fx:id="sortField" prefWidth="120"/>
+                
+                <Label text="Algorithm:"/>
+                <ComboBox fx:id="sortAlgorithm" prefWidth="150"/>
+                
+                <Button text="Sort" onAction="#handleSort"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            
+            <TableView fx:id="expensesTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="dateColumn" text="Date"/>
+                    <TableColumn fx:id="descriptionColumn" text="Description"/>
+                    <TableColumn fx:id="categoryColumn" text="Category"/>
+                    <TableColumn fx:id="providerColumn" text="Provider"/>
+                    <TableColumn fx:id="amountColumn" text="Amount"/>
+                    <TableColumn fx:id="reimbursedColumn" text="Reimbursed"/>
+                    <TableColumn fx:id="outOfPocketColumn" text="Out of Pocket"/>
+                </columns>
+            </TableView>
+            
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Label text="Sort Performance:" styleClass="bold-label"/>
+                <Label fx:id="sortTimeLabel" text="0 ms"/>
+                <Label text="Comparisons:" styleClass="bold-label"/>
+                <Label fx:id="comparisonsLabel" text="0"/>
+                <Label text="Swaps:" styleClass="bold-label"/>
+                <Label fx:id="swapsLabel" text="0"/>
+            </HBox>
+        </VBox>
+    </center>
+    
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <Label text="Total:" styleClass="bold-label"/>
+            <Label fx:id="totalLabel" text="0.00"/>
+            
+            <Label text="Reimbursed:" styleClass="bold-label"/>
+            <Label fx:id="totalReimbursedLabel" text="0.00"/>
+            
+            <Label text="Out of Pocket:" styleClass="bold-label"/>
+            <Label fx:id="totalOutOfPocketLabel" text="0.00"/>
+            
+            <Pane HBox.hgrow="ALWAYS"/>
+            
+            <Button text="Add Expense" styleClass="primary-button" onAction="#handleAddExpense"/>
+      <!--       <Button text="Edit Expense" onAction="#handleEditExpense"/> -->
+            <Button text="Delete Expense" styleClass="danger-button" onAction="#handleDeleteExpense"/>
+        </HBox>
+    </bottom>
+</BorderPane>

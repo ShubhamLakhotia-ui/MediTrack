@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/11.0.1" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="meditrack.controller.MainViewController"
+            stylesheets="@../css/meditrack-styles.css">
+   <top>
+      <VBox spacing="10">
+         <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+         </padding>
+         <HBox alignment="CENTER">
+            <Label styleClass="app-title" text="MediTrack - Healthcare Expense Tracker"/>
+         </HBox>
+         <ToolBar>
+            <Button fx:id="dashboardButton" text="Dashboard" styleClass="nav-button"/>
+            <Button fx:id="expensesButton" text="Expenses" styleClass="nav-button"/>
+            <Button fx:id="medicationsButton" text="Medications" styleClass="nav-button"/>
+            <Button fx:id="appointmentsButton" text="Appointments" styleClass="nav-button"/>
+            <!-- <Button fx:id="analyticsButton" text="Analytics" styleClass="nav-button"/> -->
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="backButton" text="Back" onAction="#navigateBack" styleClass="nav-button"/>
+         </ToolBar>
+      </VBox>
+   </top>
+   <center>
+      <StackPane fx:id="contentArea">
+         <!-- Content will be dynamically loaded here -->
+      </StackPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" spacing="10" styleClass="footer">
+         <padding>
+            <Insets top="5" right="10" bottom="5" left="10"/>
+         </padding>
+         <Label text="© 2025 MediTrack Application"/>
+      </HBox>
+   </bottom>
+</BorderPane>

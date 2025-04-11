@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fitToWidth="true" 
+            xmlns="http://javafx.com/javafx/11.0.1" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="meditrack.controller.DashboardController"
+            stylesheets="@../css/meditrack-styles.css">
+    <content>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <!-- Summary Section -->
+            <HBox spacing="20">
+                <!-- Expense Summary Card -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 5px; -fx-padding: 15px;" HBox.hgrow="ALWAYS">
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Expense Summary"/>
+                    <HBox spacing="30" alignment="CENTER">
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="Total Expenses"/>
+                            <Label fx:id="totalExpensesLabel" text="0.00" style="-fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="This Month"/>
+                            <Label fx:id="monthExpensesLabel" text="0.00" style="-fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="Reimbursed"/>
+                            <Label fx:id="reimbursedLabel" text="0.00" style="-fx-font-weight: bold;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+                
+                <!-- Medication Summary Card -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 5px; -fx-padding: 15px;" HBox.hgrow="ALWAYS">
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Medication Summary"/>
+                    <HBox spacing="30" alignment="CENTER">
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="Active Medications"/>
+                            <Label fx:id="activeMedsLabel" text="0" style="-fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="Pending Refills"/>
+                            <Label fx:id="pendingRefillsLabel" text="0" style="-fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="Today's Reminders"/>
+                            <Label fx:id="todayRemindersLabel" text="0" style="-fx-font-weight: bold;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </HBox>
+            
+            <!-- Upcoming and Recent Section -->
+            <HBox spacing="20">
+                <!-- Upcoming Appointments -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 5px; -fx-padding: 15px;" HBox.hgrow="ALWAYS">
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Upcoming Appointments"/>
+                    <TableView fx:id="upcomingAppointmentsTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="appointmentDateColumn" text="Date"/>
+                            <TableColumn fx:id="appointmentTimeColumn" text="Time"/>
+                            <TableColumn fx:id="appointmentProviderColumn" text="Provider"/>
+                            <TableColumn fx:id="appointmentReasonColumn" text="Reason"/>
+                        </columns>
+                    </TableView>
+                 <!--     <Button text="Add Appointment" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" onAction="#handleAddAppointment"/>-->
+                </VBox>
+                
+                <!-- Medication Reminders -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 5px; -fx-padding: 15px;" HBox.hgrow="ALWAYS">
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Medication Reminders"/>
+                    <TableView fx:id="medicationRemindersTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="reminderTimeColumn" text="Time"/>
+                            <TableColumn fx:id="reminderMedicationColumn" text="Medication"/>
+                            <TableColumn fx:id="reminderDosageColumn" text="Dosage"/>
+                            <TableColumn fx:id="reminderPriorityColumn" text="Priority"/>
+                        </columns>
+                    </TableView>
+                  <!--    <Button text="Take Medication" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" onAction="#handleTakeMedication"/>-->
+                </VBox>
+            </HBox>
+            
+            <!-- Expense Chart Section -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 5px; -fx-padding: 15px;">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Expense Trends"/>
+                <HBox spacing="20">
+                    <!-- Expense by Category Chart -->
+                    <PieChart fx:id="expenseCategoryChart" title="Expenses by Category" HBox.hgrow="ALWAYS"/>
+                    
+                    <!-- Monthly Expense Chart -->
+                    <LineChart fx:id="monthlyExpenseChart" title="Monthly Expenses" HBox.hgrow="ALWAYS">
+                        <xAxis>
+                            <CategoryAxis label="Month"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Amount ($)"/>
+                        </yAxis>
+                    </LineChart>
+                </HBox>
+            </VBox>
+            
+            <!-- Recent Expenses -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 5px; -fx-padding: 15px;">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Recent Expenses"/>
+                <TableView fx:id="recentExpensesTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="expenseDateColumn" text="Date"/>
+                        <TableColumn fx:id="expenseDescriptionColumn" text="Description"/>
+                        <TableColumn fx:id="expenseCategoryColumn" text="Category"/>
+                        <TableColumn fx:id="expenseAmountColumn" text="Amount"/>
+                        <TableColumn fx:id="expenseProviderColumn" text="Provider"/>
+                    </columns>
+                </TableView>
+               <!--  <Button text="Add Expense" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" onAction="#handleAddExpense"/> -->
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

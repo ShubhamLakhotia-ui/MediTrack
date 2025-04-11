@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="meditrack.controller.AppointmentsController"
+	stylesheets="@../css/meditrack-styles.css">
+	<top>
+		<VBox spacing="10">
+			<padding>
+				<Insets top="20" right="20" bottom="10" left="20" />
+			</padding>
+			<Label text="Appointments &amp; Reminders"
+				styleClass="section-title" />
+
+			<HBox spacing="10" alignment="CENTER_LEFT">
+				<!-- Search and filters -->
+				<TextField fx:id="searchField"
+					promptText="Search appointments..." prefWidth="200" />
+
+				<Label text="Status:" />
+				<ComboBox fx:id="statusFilter" prefWidth="120" />
+
+				<Label text="Sort By:" />
+				<ComboBox fx:id="sortField" prefWidth="120" />
+
+				<Button text="Apply Filters" onAction="#handleApplyFilters" />
+				<Button text="Clear Filters" onAction="#handleClearFilters" />
+
+				<Pane HBox.hgrow="ALWAYS" />
+
+				<Button text="Add Appointment" styleClass="primary-button"
+					onAction="#handleAddAppointment" />
+			</HBox>
+		</VBox>
+	</top>
+
+	<center>
+		<SplitPane dividerPositions="0.6" VBox.vgrow="ALWAYS">
+			<!-- Appointments List -->
+			<VBox spacing="10">
+				<padding>
+					<Insets top="10" right="10" bottom="10" left="20" />
+				</padding>
+				<Label text="My Appointments" styleClass="subsection-title" />
+
+				<TableView fx:id="appointmentsTable" VBox.vgrow="ALWAYS">
+					<columns>
+						<TableColumn fx:id="dateTimeColumn" text="Date &amp; Time" />
+						<TableColumn fx:id="providerColumn" text="Provider" />
+						<TableColumn fx:id="specialtyColumn" text="Specialty" />
+						<TableColumn fx:id="reasonColumn" text="Reason" />
+						<TableColumn fx:id="locationColumn" text="Location" />
+						<TableColumn fx:id="statusColumn" text="Status" />
+					</columns>
+				</TableView>
+
+				<HBox spacing="10" alignment="CENTER_RIGHT">
+					<!-- <Button text="Edit Appointment"
+						onAction="#handleEditAppointment" /> -->
+					<Button text="Delete Appointment"
+						onAction="#handleDeleteAppointment" />
+				</HBox>
+			</VBox>
+
+			<!-- Appointment Details Section -->
+			<VBox spacing="10">
+				<padding>
+					<Insets top="10" right="20" bottom="10" left="10" />
+				</padding>
+				<Label text="Appointment Details"
+					styleClass="subsection-title" />
+
+				<ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+					<VBox spacing="10" styleClass="details-container">
+						<padding>
+							<Insets top="10" right="10" bottom="10" left="10" />
+						</padding>
+						
+						<GridPane hgap="10" vgap="10">
+							<Label text="Provider:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label" />
+							<Label fx:id="detailProviderLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="field-value" />
+							
+							<Label text="Specialty:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="field-label" />
+							<Label fx:id="detailSpecialtyLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="field-value" />
+							
+							<Label text="Date &amp; Time:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="field-label" />
+							<Label fx:id="detailDateTimeLabel" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="field-value" />
+							
+							<Label text="Location:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="field-label" />
+							<Label fx:id="detailLocationLabel" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="field-value" />
+							
+							<Label text="Reason:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="field-label" />
+							<Label fx:id="detailReasonLabel" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="field-value" />
+						</GridPane>
+						
+						<Separator />
+						
+						<Label text="Notes:" styleClass="field-label" />
+						<TextArea fx:id="detailNotesArea" wrapText="true" prefHeight="100" editable="false" />
+						
+						<HBox spacing="10" alignment="CENTER_LEFT">
+							<Label text="Reminder:" styleClass="field-label" />
+							<CheckBox fx:id="reminderCheckbox" text="Set Reminder" onAction="#handleToggleReminder" />
+							<Label text="Minutes Before:" />
+							<TextField fx:id="reminderMinutesField" prefWidth="60" disable="true" />
+							<Button text="Update Reminder" onAction="#handleUpdateReminder" disable="true" fx:id="updateReminderButton" />
+						</HBox>
+					</VBox>
+				</ScrollPane>
+				
+				<VBox spacing="5" styleClass="dashboard-card">
+					<padding>
+						<Insets top="10" right="10" bottom="10" left="10" />
+					</padding>
+					<Label text="Add New Appointment" styleClass="card-title" />
+
+					<GridPane hgap="10" vgap="10">
+						<Label text="Provider:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+						<TextField fx:id="newProviderField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+						
+						<Label text="Specialty:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+						<TextField fx:id="newSpecialtyField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+						
+						<Label text="Date:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+						<DatePicker fx:id="newDateField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+						
+						<Label text="Time:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+						<TextField fx:id="newTimeField" promptText="HH:MM" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+						
+						<Label text="Location:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+						<TextField fx:id="newLocationField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+						
+						<Label text="Reason:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+						<TextField fx:id="newReasonField" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+					</GridPane>
+
+					<Button text="Add Appointment" styleClass="primary-button"
+						onAction="#handleAddAppointment" maxWidth="Infinity" />
+				</VBox>
+			</VBox>
+		</SplitPane>
+	</center>
+
+	<bottom>
+		<VBox spacing="10">
+			<padding>
+				<Insets top="10" right="20" bottom="20" left="20" />
+			</padding>
+
+			<TitledPane text="Upcoming Appointments" expanded="false">
+				<VBox>
+					<ListView fx:id="upcomingAppointmentsListView" prefHeight="150" />
+				</VBox>
+			</TitledPane>
+		</VBox>
+	</bottom>
+</BorderPane>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="meditrack.controller.MedicationsController"
+	stylesheets="@../css/meditrack-styles.css">
+	<top>
+		<VBox spacing="10">
+			<padding>
+				<Insets top="20" right="20" bottom="10" left="20" />
+			</padding>
+			<Label text="Medications &amp; Reminders"
+				styleClass="section-title" />
+
+			<HBox spacing="10" alignment="CENTER_LEFT">
+				<!-- Search and filters -->
+				<TextField fx:id="searchField"
+					promptText="Search medications..." prefWidth="200" />
+
+				<Label text="Status:" />
+				<ComboBox fx:id="statusFilter" prefWidth="120" />
+
+				<Label text="Sort By:" />
+				<ComboBox fx:id="sortField" prefWidth="120" />
+
+				<Button text="Apply Filters" onAction="#handleApplyFilters" />
+				<Button text="Clear Filters" onAction="#handleClearFilters" />
+
+				<Pane HBox.hgrow="ALWAYS" />
+
+				<Button text="Add Medication" styleClass="primary-button"
+					onAction="#handleAddMedication" />
+			</HBox>
+		</VBox>
+	</top>
+
+	<center>
+		<SplitPane dividerPositions="0.6" VBox.vgrow="ALWAYS">
+			<!-- Medications List -->
+			<VBox spacing="10">
+				<padding>
+					<Insets top="10" right="10" bottom="10" left="20" />
+				</padding>
+				<Label text="My Medications" styleClass="subsection-title" />
+
+				<TableView fx:id="medicationsTable" VBox.vgrow="ALWAYS">
+					<columns>
+						<TableColumn fx:id="nameColumn" text="Medication Name" />
+						<TableColumn fx:id="dosageColumn" text="Dosage" />
+						<TableColumn fx:id="instructionsColumn"
+							text="Instructions" />
+						<TableColumn fx:id="prescriberColumn"
+							text="Prescriber" />
+						<TableColumn fx:id="refillsColumn"
+							text="Refills Remaining" />
+						<TableColumn fx:id="statusColumn" text="Status" />
+					</columns>
+				</TableView>
+
+				<HBox spacing="10" alignment="CENTER_RIGHT">
+<!-- 					<Button text="Edit Medication"
+						onAction="#handleEditMedication" /> -->
+					<Button text="Set Inactive" onAction="#handleSetInactive" />
+					<Button text="Request Refill"
+						onAction="#handleRequestRefill" />
+				</HBox>
+			</VBox>
+
+			<!-- Reminders Section -->
+			<VBox spacing="10">
+				<padding>
+					<Insets top="10" right="20" bottom="10" left="10" />
+				</padding>
+				<Label text="Medication Reminders"
+					styleClass="subsection-title" />
+
+				<ListView fx:id="remindersList" VBox.vgrow="ALWAYS" />
+
+				<VBox spacing="5" styleClass="dashboard-card">
+					<padding>
+						<Insets top="10" right="10" bottom="10" left="10" />
+					</padding>
+					<Label text="Add Reminder" styleClass="card-title" />
+
+					<HBox spacing="10" alignment="CENTER_LEFT">
+						<Label text="Medication:" />
+						<ChoiceBox fx:id="reminderMedicationChoice"
+							HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+					</HBox>
+
+					<HBox spacing="10" alignment="CENTER_LEFT">
+						<Label text="Date &amp; Time:" />
+						<DatePicker fx:id="reminderDate" />
+						<TextField fx:id="reminderTime" promptText="HH:MM"
+							prefWidth="80" />
+					</HBox>
+
+					<HBox spacing="10" alignment="CENTER_LEFT">
+						<Label text="Priority (1-5):" />
+						<Slider fx:id="prioritySlider" min="1" max="5" value="3"
+							majorTickUnit="1" minorTickCount="0" snapToTicks="true"
+							showTickLabels="true" showTickMarks="true" prefWidth="200" />
+						<Label fx:id="priorityLabel" text="3" />
+					</HBox>
+
+					<Button text="Add Reminder" styleClass="primary-button"
+						onAction="#handleAddReminder" maxWidth="Infinity" />
+				</VBox>
+			</VBox>
+		</SplitPane>
+	</center>
+
+	<bottom>
+		<VBox spacing="10">
+			<padding>
+				<Insets top="10" right="20" bottom="20" left="20" />
+			</padding>
+
+			<TitledPane text="Heap Visualization" expanded="false">
+				<VBox>
+					<Label text="Medication Reminder Priority Queue (Max Heap)"
+						styleClass="subsection-title" />
+					<TextArea fx:id="heapVisualization" editable="false"
+						prefHeight="150" wrapText="true" />
+					<HBox spacing="10" alignment="CENTER_RIGHT">
+						<Button text="Mark Highest Priority as Taken"
+							onAction="#handleMarkHighestPriority" />
+						<Button text="Refresh Heap Visualization"
+							onAction="#handleRefreshHeap" />
+					</HBox>
+				</VBox>
+			</TitledPane>
+		</VBox>
+	</bottom>
+</BorderPane>
